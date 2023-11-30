@@ -4,8 +4,37 @@ Criptografia -- tecnicas para ocultar informacion
 
 criptoanalisis -- tecnicas para desifrar informacion sin las llaves 
 
-Texti cifradi conocido
-texto claro conocido 
-texto cifrado seleccionado 
-texto claro seleccionado 
+*Texti cifradi conocido
+*texto claro conocido 
+*texto cifrado seleccionado 
+*texto claro seleccionado 
 
+antecedentes de la Criptografia
+roma
+maquina enigma 
+maquina purple(chinos)
+
+
+bases de los sistemas criptograficos 
+->matematicas
+->computacion y electronica 
+
+crifrado
+
+texto plano -> cifrado(llave k1) -> texto cifrado -> desifrado(llave k2) -> texto plano
+*cifrado y desifrado son algoridmos inversos
+dependen del par de llaves k1 y k2 
+
+
+cifrado simetrico(llave primaria)
+usa una sola llave para cifrar y desifrar
+la llave unicamente la debe conocer el emisor y el receptor
+cualquier persiona con la llave lo puede desifrar
+
+cifrado asimetrico
+usa una llave para cifrar y otra para desifrar
+la llave pubublioca es usada para sifrar
+la llave rpivada se usa para desifrar
+*alto consumo de recursos 
+*requiere participacion de un tercero
+*se utiliza en comunicaciones para firmar mensajes 
