@@ -1,1 +1,11 @@
-Criptografia
+            criptologia
+
+Criptografia -- tecnicas para ocultar informacion
+
+criptoanalisis -- tecnicas para desifrar informacion sin las llaves 
+
+Texti cifradi conocido
+texto claro conocido 
+texto cifrado seleccionado 
+texto claro seleccionado 
+
