@@ -38,3 +38,7 @@ la llave rpivada se usa para desifrar
 *alto consumo de recursos 
 *requiere participacion de un tercero
 *se utiliza en comunicaciones para firmar mensajes 
+
+
+
+se revisaron las notas en casa 
