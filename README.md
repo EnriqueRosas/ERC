@@ -1,2 +1,2 @@
 # ERC
-TRABAJOS DE CLASE LB-524
+Repositorio de las materias que estoy cursando este trimestre...principalmente trabajos hechos en clase
