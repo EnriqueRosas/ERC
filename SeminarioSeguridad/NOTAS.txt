@@ -40,6 +40,7 @@ la llave rpivada se usa para desifrar
 *requiere participacion de un tercero
 *se utiliza en comunicaciones para firmar mensajes 
 
+<<<<<<< HEAD:SEMINARIO DE SEGURIDAD/NOTAS.txt
 hashing
 toma una entrada y la trasforma en una salida de longitud fija unicamentetrasformacion de un solo sentido (irreversible)
 * es practicamente imposible obtner el mensaje apartir de su valor hashing
@@ -60,3 +61,8 @@ aplicaciones -> firma
 certificados 
 
 
+=======
+
+
+se revisaron las notas en casa 
+>>>>>>> a47c8339cb43f0713e51aa82d11d6f8b38a8390e:SeminarioSeguridad/NOTAS.txt
