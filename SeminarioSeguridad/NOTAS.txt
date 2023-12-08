@@ -20,16 +20,17 @@ bases de los sistemas criptograficos
 ->computacion y electronica 
 
 crifrado
-
 texto plano -> cifrado(llave k1) -> texto cifrado -> desifrado(llave k2) -> texto plano
 *cifrado y desifrado son algoridmos inversos
 dependen del par de llaves k1 y k2 
+
 
 
 cifrado simetrico(llave primaria)
 usa una sola llave para cifrar y desifrar
 la llave unicamente la debe conocer el emisor y el receptor
 cualquier persiona con la llave lo puede desifrar
+
 
 cifrado asimetrico
 usa una llave para cifrar y otra para desifrar
@@ -39,6 +40,29 @@ la llave rpivada se usa para desifrar
 *requiere participacion de un tercero
 *se utiliza en comunicaciones para firmar mensajes 
 
+<<<<<<< HEAD:SEMINARIO DE SEGURIDAD/NOTAS.txt
+hashing
+toma una entrada y la trasforma en una salida de longitud fija unicamentetrasformacion de un solo sentido (irreversible)
+* es practicamente imposible obtner el mensaje apartir de su valor hashing
+* incluso si se tiene la funcion hashing
+salida de longitud fijapara cada entrada la salida es unicamente
+texto plano => funcion hash()
+
+rainbow table(ataque)
+es una tabla de valores hash y su correspondiente texto plano
+salt-> es el proceso de agregar un valor unico al pricipio o al final del texto palno para crear un valor hash diferente
+
+ashing vs cifrado 
+ashinh no se puede decifrar y el cofrado si
+
+aplicaciones -> firma
+
+
+certificados 
+
+
+=======
 
 
 se revisaron las notas en casa 
+>>>>>>> a47c8339cb43f0713e51aa82d11d6f8b38a8390e:SeminarioSeguridad/NOTAS.txt
