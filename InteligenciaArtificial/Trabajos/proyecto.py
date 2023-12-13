@@ -1,6 +1,5 @@
 import pygame
 import math
-import random
 import heapq
 
 # Definición de colores
@@ -29,54 +28,85 @@ pygame.display.set_caption('A* Algorithm')
 framerate = 30
 clock = pygame.time.Clock()
 
-# Lista de nodos con sus coordenadas aleatorias
-nodes = {}
-for node in range(15):  # Ajusta la cantidad deseada de nodos
-    nodes[f'Node {node}'] = (random.randint(50, image_width - 50), random.randint(50, image_height - 50))
-
-# Establecer un punto de partida y un punto de destino
-start_node = random.choice(list(nodes.keys()))
-end_node = random.choice(list(nodes.keys()))
-while start_node == end_node:
-    end_node = random.choice(list(nodes.keys()))
+# Lista de nodos con sus coordenadas asociadas
+nodes = {
+    'A': (100, 150),
+    'B': (200, 400),
+    'C': (300, 100),
+    'D': (430, 70),
+    'E': (430, 500),
+    'F': (600, 350),
+    'G': (830, 75),
+    'H': (750, 550),
+    'I': (900, 200),
+    'J': (1000, 380),
+    'K': (1100, 550),
+    'L': (1200, 100),
+    # Agrega más nodos según sea necesario
+}
 
 # Representación del grafo (conexiones entre nodos y costos)
-graph = {}
-for node in nodes:
-    # Asigna conexiones y costos basados en la distancia euclidiana
-    connections = {}
-    for other_node, other_coords in nodes.items():
-        if other_node != node and random.random() < 0.7:  # Ajusta el umbral para tener más conexiones
-            distance = math.sqrt((nodes[node][0] - other_coords[0])**2 + (nodes[node][1] - other_coords[1])**2)
-            cost = int(distance * 2)  # Puedes ajustar el factor multiplicativo según tu preferencia
-            connections[other_node] = cost
-    graph[node] = connections
+graph = {
+    'A': {'B': 0, 'C': 0, 'D': 0},
+    'B': {'A': 0, 'C': 0, 'E': 0},
+    'C': {'A': 0, 'B': 0, 'F': 0},
+    'D': {'A': 0, 'E': 0, 'G': 0},
+    'E': {'B': 0, 'D': 0, 'F': 0, 'H': 0},
+    'F': {'C': 0, 'E': 0, 'G': 0, 'I': 0},
+    'G': {'D': 0, 'F': 0, 'H': 0, 'J': 0},
+    'H': {'E': 0, 'G': 0, 'I': 0, 'K': 0},
+    'I': {'F': 0, 'H': 0, 'J': 0, 'L': 0},
+    'J': {'G': 0, 'I': 0, 'K': 0},
+    'K': {'H': 0, 'J': 0, 'L': 0},
+    'L': {'I': 0, 'K': 0},
+    # Agrega más conexiones según sea necesario
+}
 
-# Algoritmo A* para encontrar la ruta más corta
-def astar(graph, start, end):
-    def flatten(L):
-        while len(L) > 0:
-            yield L[0]
-            L = L[1]
+# Funciones auxiliares
+def dis_manhattan(a, b):
+    return abs(b[0] - a[0]) + abs(b[1] - a[1])
 
-    q = [(0, start, ())]
-    visited = set()
-    while True:
-        cost, v1, path = heapq.heappop(q)
-        if v1 not in visited:
-            visited.add(v1)
-            if v1 == end:
-                return list(flatten(path))[::-1] + [v1]
-            path = (v1, path)
-            for v2, cost2 in graph[v1].items():
-                if v2 not in visited:
-                    heapq.heappush(q, (cost + cost2 + dis2(nodes[v2], nodes[end]), v2, path))
-
+# Función de distancia ajustada para usar la métrica de Manhattan
 def dis2(a, b):
-    return math.sqrt((b[0] - a[0])**2 + (b[1] - a[1])**2)
+    return dis_manhattan(a, b)
 
-# Encuentra la ruta más corta
-shortest_path = astar(graph, start_node, end_node)
+# Función A* para encontrar la ruta más corta
+def astar(graph, start, goal):
+    open_set = [(0, start)]
+    closed_set = set()
+
+    g_score = {node: float('inf') for node in graph}
+    g_score[start] = 0
+
+    came_from = {}
+
+    while open_set:
+        current_g, current = heapq.heappop(open_set)
+
+        if current == goal:
+            path = []
+            while current in came_from:
+                path.insert(0, current)
+                current = came_from[current]
+            return path
+
+        closed_set.add(current)
+
+        for neighbor, cost in graph[current].items():
+            if neighbor in closed_set:
+                continue
+
+            tentative_g = g_score[current] + cost
+
+            if tentative_g < g_score[neighbor]:
+                g_score[neighbor] = tentative_g
+                heapq.heappush(open_set, (tentative_g + dis_manhattan(nodes[neighbor], nodes[goal]), neighbor))
+                came_from[neighbor] = current
+
+    return None
+
+# Obtener la ruta más corta
+shortest_path = astar(graph, 'A', 'K')
 
 # Bucle principal
 run = True
@@ -89,22 +119,28 @@ while run:
 
     # Dibuja nodos en la pantalla
     for node, (x, y) in nodes.items():
-        pygame.draw.circle(display, red if node == start_node else blue if node == end_node else green, (x, y), 10)
+        color = red
+        if node == 'A':
+            color = cyan
+        elif node == 'K':
+            color = yellow
+        pygame.draw.circle(display, color, (x, y), 10)
         text = pygame.font.Font(None, 20).render(node, True, white)
         display.blit(text, (x - 5, y - 10))
 
     # Dibuja conexiones entre nodos
     for node, connections in graph.items():
         for neighbor, costo in connections.items():
-            pygame.draw.line(display, yellow, nodes[node], nodes[neighbor], 2)
+            line_color = blue
+            if (node, neighbor) in zip(shortest_path, shortest_path[1:]):
+                line_color = yellow  # Cambia el color de la ruta más corta
+                # Pinta las líneas de la ruta más corta de un color diferente
+                pygame.draw.line(display, line_color, nodes[node], nodes[neighbor], 4)
+            else:
+                pygame.draw.line(display, line_color, nodes[node], nodes[neighbor], 2)
             # Muestra el costo en cada conexión
-            text = pygame.font.Font(None, 15).render(str(costo), True, yellow)
+            text = pygame.font.Font(None, 15).render(str(costo), True, green)
             display.blit(text, ((nodes[node][0] + nodes[neighbor][0]) // 2, (nodes[node][1] + nodes[neighbor][1]) // 2))
-
-    # Dibuja la ruta más corta
-    if shortest_path:
-        for i in range(len(shortest_path) - 1):
-            pygame.draw.line(display, cyan, nodes[shortest_path[i]], nodes[shortest_path[i + 1]], 4)
 
     pygame.display.update()
     clock.tick(framerate)
