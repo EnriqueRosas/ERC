@@ -66,3 +66,14 @@ certificados
 
 se revisaron las notas en casa 
 >>>>>>> a47c8339cb43f0713e51aa82d11d6f8b38a8390e:SeminarioSeguridad/NOTAS.txt
+
+
+clasificacion de los algoridmos de cifrado 
+
+segun el tipo de opracioon
+segun el numero de llaves 
+segun la forma de procesar el texto
+
+cifrado simetrico 
+
+
